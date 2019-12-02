@@ -1,0 +1,451 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>CSS Grid Layout</h1>
+					<aside class="notes">
+					</aside>
+				</section>
+				<section>
+					<h2>What is grid?</h2>
+					<p>
+						CSS Grid Layout introduces a two-dimensional grid system to CSS. 
+						Grids can be used to lay out major page areas or small user interface elements.
+					</p>
+					<p>
+						A grid is an intersecting set of horizontal and vertical lines – one set defining columns, and the other, rows. 
+					</p>
+					<aside class="notes">
+							CSS Grid Layout introduces a two-dimensional grid system to CSS. Grids can be used to lay out major page areas or small user interface elements. 
+							A grid is an intersecting set of horizontal and vertical lines – one set defining columns, and the other, rows.
+							Elements can be placed onto the grid, within these column and row lines.
+					</aside>
+				</section>
+				<!-- <section>
+						<h2>Features</h2>
+						<ul>
+							<li>Fixed and flexible track sizes</li>	
+							<li>Item placement</li>
+							<li>Creation of additional tracks to hold content</li>
+							<li>Alignment control</li>
+							<li>Control of overlapping content</li>
+						</ul>
+						<aside></aside>
+				</section> -->
+				<section>
+					<section>
+						<h2>The Grid container</h2>
+						<p>
+							We create a grid container by declaring 
+							<br><code style="color: #00BFFF">display: grid</code> or <code style="color: #00BFFF">display: inline-grid</code>
+							<br>on an element.
+						</p>
+						<aside class="notes">
+								We create a grid container by declaring display: grid or display: inline-grid on an element.
+								As soon as we do this, all direct children of that element become grid items.
+						</aside>
+					</section>
+					<section>
+						<pre>
+							<code class="hljs" data-trim data-line-numbers="1">
+								<div class="wrapper">
+								  <div>One</div>
+								  <div>Two</div>
+								  <div>Three</div>
+								  <div>Four</div>
+								  <div>Five</div>
+								</div>
+							</code>
+						</pre>
+						<p>Let's make the <code>.wrapper</code> a grid container.</p>
+						<pre>
+							<code  class="hljs" data-trim data-line-numbers>
+									.wrapper {
+									  display: grid;
+									}
+							</code>
+						</pre>
+						<aside class="notes">
+								In this example, we have a containing div with a class of wrapper and, inside are five child elements.
+								I make the .wrapper a grid container.
+						</aside>
+					</section>
+					<section>
+						<img src="lib/pic/pic1.png">
+						<aside class="notes">
+								In a web browser, you won’t see any difference to how these items are displayed before turning them into a grid,
+								as grid has created a single column grid for the items.
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Grid Tracks</h2>
+						<p>A <span>grid track</span> is the space between any two lines on the grid.</p>
+						<p>We define rows and columns on our grid with the <code style="color: #00BFFF">grid-template-columns</code> 
+							<br>and <code style="color: #00BFFF">grid-template-rows</code> properties. 
+						</p>
+						<aside class="notes">
+							If we want to start making this more grid-like we need to add column tracks.
+							We define rows and columns on our grid with the grid-template-columns and grid-template-rows properties.
+							These define grid tracks. A grid track is the space between any two lines on the grid.
+						</aside>
+					</section>
+					<section>
+						<pre>
+							<code class="hljs" data-trim data-line-numbers>
+							  .wrapper {
+								  display: grid;
+								  grid-template-columns: 200px 200px 200px;
+							  }
+							</code>
+						</pre>
+						<img src="lib/pic/pic2.png">
+						<aside class="notes">
+							We can add tracks to our earlier example by adding the grid-template-columns property and create a grid with three 200-pixel-wide column tracks.
+							The child items will be laid out on this grid one in each grid cell.
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>The <code>Fr</code> Unit</h2>
+						<p>Grid introduces an additional length unit to help us create flexible grid tracks.
+							The new <code style="color: #00BFFF">fr</code> unit represents a fraction of the available space in the grid container.
+						</p>
+						<aside class="notes">
+							Tracks can be defined using any length unit. Grid also introduces an additional length unit to help us create flexible grid tracks. 
+							The new fr unit represents a fraction of the available space in the grid container.
+						</aside>
+					</section>
+					<section>
+						<pre>
+							<code class="hljs" data-trim data-line-numbers>
+							  .wrapper {
+							    display: grid;
+							    grid-template-columns: 1fr 1fr 1fr;
+							  }
+							</code>
+						</pre>
+						<img src="lib/pic/pic3.png">
+						<aside class="notes">
+							The next grid definition would create three equal width tracks that grow and shrink according to the available space.
+						</aside>
+					</section>
+					<section>
+							<pre>
+								<code class="hljs" data-trim data-line-numbers>
+									.wrapper {
+									  display: grid;
+									  grid-template-columns: 2fr 1fr 1fr;
+									}
+								</code>
+							</pre>
+							<img src="lib/pic/pic4.png">
+							<aside class="notes">
+								In next example, we create a definition with a 2fr track then two 1fr tracks.
+								The available space is split into four. Two parts are given to the first track and one part each to the next two tracks.
+							</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+							<h2>Track listings with <code>repeat()</code> notation</h2>
+							<p>Large grids with many tracks can use the <code style="color: #00BFFF">repeat()</code> notation, to repeat all or a section of the track listing.</p>
+							<aside class="notes">
+								Large grids with many tracks can use the repeat() notation, to repeat all or a section of the track listing.
+							</aside>
+					</section>
+					<section>
+						<p>For example the grid definition:</p>
+						<pre>
+							<code class="hljs" data-trim data-line-numbers>
+								.wrapper {
+								  display: grid;
+								  grid-template-columns: 1fr 1fr 1fr;
+								}	
+							</code>
+						</pre>
+						<p>Can also be written as:</p>
+						<pre>
+							<code class="hljs" data-trim data-line-numbers>
+								.wrapper {
+								  display: grid;
+								  grid-template-columns: repeat(3, 1fr);
+								}
+							</code>
+						</pre>
+						<aside class="notes">
+							For example this grid definition:
+							Can also be written like this:
+						</aside>
+					</section>
+					<section>
+							<p>In next example, grid will consist of 10 tracks, a 1fr track, and then followed by a 2fr track. This pattern will be repeated five times.</p>
+							<pre>
+								<code class="hljs" data-trim data-line-numbers>
+								  .wrapper {
+								    display: grid;
+								    grid-template-columns: repeat(5, 1fr, 2fr);
+								  }
+									</code>
+								</pre>
+								<img src="lib/pic/pic4.png">
+								<aside class="notes">
+									Repeat notation takes the track listing, and uses it to create a repeating pattern of tracks. 
+									In this next example, my grid will consist of 10 tracks, a 1fr track, and then followed by a 2fr track. This pattern will be repeated five times.
+								</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+							<h2>The implicit and explicit grid</h2>
+							<p>The explicit grid consists of any rows and columns defined with <code style="color: #00BFFF">grid-template-columns</code> 
+								or <code style="color: #00BFFF">grid-template-rows</code>.
+							</p>
+							<br>
+							<p>If you place something outside of the defined grid—or due to the amount of content, more grid tracks are needed—then the grid creates
+								rows and columns in the implicit grid. 
+							</p>
+							<aside class="notes">
+									When we creating our example grid we specifically defined our column tracks with the grid-template-columns property, 
+									but the grid also created rows on its own. These rows are part of the implicit grid. The explicit grid 
+									consists of any rows and columns defined with grid-template-columns or grid-template-rows.
+									If you place something outside of the defined grid—or due to the amount of content, more grid tracks 
+									are needed—then the grid creates rows and columns in the implicit grid.
+							</aside>
+					</section>
+					<section>
+						<p>In the implicit grid tracks can be auto-sized by default, resulting in their size being based on the content that is inside them.</p>
+						<br>
+						<p>But you can also define a set size for these tracks with the <code style="color: #00BFFF">grid-auto-rows</code> and <code style="color: #00BFFF">grid-auto-columns</code> properties.</p>
+						<aside class="notes">
+								In the implicit grid tracks will be auto-sized by default, resulting in their size being based on the content that is inside them.
+								You can also define a set size for tracks created in the implicit grid with the grid-auto-rows and grid-auto-columns properties.
+						</aside>
+					</section>
+					<section>
+						<pre>
+							<code class="hljs" data-trim data-line-numbers>
+								.wrapper {
+									display: grid;
+									grid-template-columns: repeat(3, 1fr);
+									grid-auto-rows: 200px;
+								}
+							</code>
+						</pre>
+						<img src="lib/pic/pic5.png">
+						</pre>
+						<aside class="notes">
+								In the next example we use grid-auto-rows to ensure that tracks created in the implicit grid are 200 pixels tall.
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Grid Lines</h2>
+						<p>When we define a grid we define the grid tracks, not the lines. Grid then gives us numbered lines to use when positioning items.</p>
+						<img src="lib/pic/pic6.png" width="600px" height="300px">
+						<aside class="notes">
+								When we define a grid we define the grid tracks, not the lines. 
+								Grid then gives us numbered lines to use when positioning items. In three column, two row grid we have four column lines.
+								Lines are numbered according to the writing mode of the document.
+								Lines can also be named.
+						</aside>
+					</section>
+					<section>
+						<h3>Positioning items against lines</h3>
+						<br>
+						<p>
+							In the following example we are placing the first two items on our three column track grid, 
+							using the <code style="color: #00BFFF">grid-column-start</code>, <code style="color: #00BFFF">grid-column-end</code>, 
+							<code style="color: #00BFFF">grid-row-start</code> and <code style="color: #00BFFF">grid-row-end</code> properties.
+						</p>
+						<pre>
+							<code class="hljs" data-trim data-line-numbers>
+									<div class="wrapper">
+									  <div class="box1">One</div>
+									  <div class="box2">Two</div>
+									  <div class="box3">Three</div>
+									  <div class="box4">Four</div>
+									  <div class="box5">Five</div>
+									</div>
+							</code>
+						</pre>
+						<aside class="notes">
+							In the following example we are placing the first two items on our three column track grid, 
+							using the grid-column-start, grid-column-end, 
+							grid-row-start and grid-row-end properties.
+						</aside>
+					</section>
+					<section>
+						<pre>
+							<code class="hljs" data-trim data-line-numbers>
+								.box1 { 
+								  grid-column-start: 1; 
+								  grid-column-end: 4; 
+								  grid-row-start: 1; 
+								  grid-row-end: 3; 
+								}
+									
+								.box2 { 
+								  grid-column-start: 1; 
+								  grid-row-start: 3; 
+								  grid-row-end: 5; 
+								}									
+							</code>
+						</pre>
+						<aside class="notes">
+								Working from left to right, the first item is placed against column line 1, and spans to column line 4, 
+								which in our case is the far-right line on the grid. It begins at row line 1 and ends at row line 3, therefore spanning two row tracks.
+								The second item starts on grid column line 1, and spans one track. This is the default so we do not need to specify 
+								the end line. It also spans two row tracks from row line 3 to row line 5. The other items will place themselves into empty spaces on the grid.
+						</aside>
+					</section>
+					<section>
+						<img src="lib/pic/pic7.png">
+						<aside class="notes">
+							That's what we get.
+						</aside>
+					</section>
+				</section>
+				<section>
+					<h2>Grid cells</h2>
+					<p>A grid cell is the smallest unit on a grid.</p>
+					<img src="lib/pic/pic8.png">
+					<aside class="notes">
+						A grid cell is the smallest unit on a grid. Conceptually it is like a table cell. 
+					</aside>
+				</section>
+				<section>
+					<h2>Grid areas</h2>
+					<p>Items can span one or more cells both by row or by column, and this creates a grid area.</p>
+					<img src="lib/pic/pic9.png">
+					<aside class="notes">
+						Items can span one or more cells both by row or by column, and this creates a grid area.
+					</aside>
+				</section>
+				<section>
+					<section>
+						<h2>Gutters</h2>
+						<p>Gutters or alleys between grid cells can be created using the <code style="color: #00BFFF">column-gap</code> and <code style="color: #00BFFF">row-gap</code> properties.</p>
+						<aside class="notes">
+							Gutters or alleys between grid cells can be created using the column-gap and row-gap properties.
+						</aside>
+					</section>
+					<section>
+						<p>In the example, I am creating a 10-pixel gap between columns and a 15-pixel gap between rows.</p>
+						<pre>
+							<code class="hljs" data-trim data-line-numbers>
+								.wrapper {
+								  display: grid;
+								  grid-template-columns: repeat(3, 1fr);
+								  column-gap: 10px;
+								  row-gap: 15px;
+								}
+							</code>
+						</pre>
+						<img src="lib/pic/pic10.png">
+						<aside class="notes">
+							In the example, I am creating a 10-pixel gap between columns and a 15-pixel gap between rows.
+							Gaps act for sizing purposes like a regular grid track, however you cannot place anything into a gap.
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Nesting grids</h2>
+						<p>A grid item can become a grid container.</p>
+						<p>In the next example, we have the three-column grid, with two positioned items. The first item has some sub-items.</p>
+						<pre>
+							<code class="hljs" data-trim data-line-numbers>
+								<div class="wrapper">
+								  <div class="box box1">
+									  <div class="nested">a</div>
+									  <div class="nested">b</div>
+									  <div class="nested">c</div>
+								  </div>
+								  <div class="box box2">Two</div>
+								  <div class="box box3">Three</div>
+								  <div class="box box4">Four</div>
+								  <div class="box box5">Five</div>
+								</div>
+							</code>
+						</pre>
+						<aside class="notes">
+							A grid item can become a grid container.
+							In the next example, we have the three-column grid, with two positioned items. The first item has some sub-items.
+						</aside>
+					</section>
+					<section>
+						<p>
+							If I set <code style="color: #00BFFF">box1</code> to <code style="color: #00BFFF">display: grid</code> 
+							I can give it a track definition and it too will become a grid.
+						</p>
+						<pre>
+							<code class="hljs" data-trim data-line-numbers>
+								.box1 {
+								  grid-column-start: 1;
+								  grid-column-end: 4;
+								  grid-row-start: 1;
+								  grid-row-end: 3;
+								  display: grid;
+								  grid-template-columns: repeat(3, 1fr);
+								}
+							</code>
+						</pre>
+						<img src="lib/pic/pic11.png" width="850px" height="150px">
+						<aside class="notes">
+							If I set box1 to display: grid
+							I can give it a track definition and it too will become a grid. The items then lay out on this new grid.
+							In this case the nested grid has no relationship to the parent.
+						</aside>
+					</section>
+				</section>
+				<section>
+					<h2>Thank you for attention!</h2>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
